@@ -4393,22 +4393,6 @@ handle_fontified_prop (struct it *it)
 
       eassert (it->end_charpos == ZV);
 
-      if (0
-	  && long_line_locked_narrowing_region_size > 0)
-	{
-	  ptrdiff_t begv = it->locked_narrowing_begv;
-	  ptrdiff_t zv = it->locked_narrowing_zv;
-	  ptrdiff_t charpos = IT_CHARPOS (*it);
-	  if (charpos < begv || charpos > zv)
-	    {
-	      begv = get_locked_narrowing_begv (charpos);
-	      zv = get_locked_narrowing_zv (charpos);
-	    }
-	  if (begv != BEG || zv != Z)
-	    narrow_to_region_locked (make_fixnum (begv), make_fixnum (zv),
-				     Qfontification_functions);
-	}
-
       /* Don't allow Lisp that runs from 'fontification-functions'
 	 clear our face and image caches behind our back.  */
       it->f->inhibit_clear_image_cache = true;
@@ -16392,8 +16376,6 @@ redisplay_internal (void)
 
   FOR_EACH_FRAME (tail, frame)
     XFRAME (frame)->already_hscrolled_p = false;
-
-  reset_outermost_narrowings ();
 
  retry:
   /* Remember the currently selected window.  */
