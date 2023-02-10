@@ -36720,14 +36720,7 @@ The tool bar style must also show labels for this to have any effect, see
     doc: /* List of functions to call to fontify regions of text.
 Each function is called with one argument POS.  Functions must
 fontify a region starting at POS in the current buffer, and give
-fontified regions the property `fontified' with a non-nil value.
-
-Note that, when the buffer contains one or more lines whose length is
-above `long-line-threshold', these functions are called with the
-buffer narrowed to a small portion around POS (whose size is specified
-by `long-line-locked-narrowing-region-size'), and the narrowing is
-locked (see `narrowing-lock'), so that these functions cannot use
-`widen' to gain access to other portions of buffer text.  */);
+fontified regions the property `fontified' with a non-nil value.  */);
   Vfontification_functions = Qnil;
   Fmake_variable_buffer_local (Qfontification_functions);
 

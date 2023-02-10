@@ -12718,14 +12718,6 @@ If an unhandled error happens in running this hook, the function in
 which the error occurred is unconditionally removed, since otherwise
 the error might happen repeatedly and make Emacs nonfunctional.
 
-Note that, when the current buffer contains one or more lines whose
-length is above `long-line-threshold', these hook functions are called
-with the buffer narrowed to a small portion around point (whose size
-is specified by `long-line-locked-narrowing-region-size'), and the
-narrowing is locked (see `narrowing-lock'), so that these hook
-functions cannot use `widen' to gain access to other portions of
-buffer text.
-
 See also `post-command-hook'.  */);
   Vpre_command_hook = Qnil;
 
@@ -12739,14 +12731,6 @@ the error might happen repeatedly and make Emacs nonfunctional.
 It is a bad idea to use this hook for expensive processing.  If
 unavoidable, wrap your code in `(while-no-input (redisplay) CODE)' to
 avoid making Emacs unresponsive while the user types.
-
-Note that, when the current buffer contains one or more lines whose
-length is above `long-line-threshold', these hook functions are called
-with the buffer narrowed to a small portion around point (whose size
-is specified by `long-line-locked-narrowing-region-size'), and the
-narrowing is locked (see `narrowing-lock'), so that these hook
-functions cannot use `widen' to gain access to other portions of
-buffer text.
 
 See also `pre-command-hook'.  */);
   Vpost_command_hook = Qnil;

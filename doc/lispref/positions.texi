@@ -1036,12 +1036,6 @@ positions.
 
 In an interactive call, @var{start} and @var{end} are set to the bounds
 of the current region (point and the mark, with the smallest first).
-
-Note that, in rare circumstances, Emacs may decide to leave, for
-performance reasons, the accessible portion of the buffer unchanged
-after a call to @code{narrow-to-region}.  This can happen when a Lisp
-program is called via low-level hooks, such as
-@code{jit-lock-functions}, @code{post-command-hook}, etc.
 @end deffn
 
 @deffn Command narrow-to-page &optional move-count
@@ -1066,12 +1060,6 @@ It is equivalent to the following expression:
 (narrow-to-region 1 (1+ (buffer-size)))
 @end example
 @end deffn
-
-Note that, in rare circumstances, Emacs may decide to leave, for
-performance reasons, the accessible portion of the buffer unchanged
-after a call to @code{widen}.  This can happen when a Lisp program is
-called via low-level hooks, such as @code{jit-lock-functions},
-@code{post-command-hook}, etc.
 
 @defun buffer-narrowed-p
 This function returns non-@code{nil} if the buffer is narrowed, and

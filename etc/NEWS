@@ -615,9 +615,6 @@ with 'C-x x t', or try disabling all known slow minor modes with
 and the major mode with 'M-x so-long-mode', or visit the file with
 'M-x find-file-literally' instead of the usual 'C-x C-f'.
 
-Note that the display optimizations in these cases may cause the
-buffer to be occasionally mis-fontified.
-
 The new function 'long-line-optimizations-p' returns non-nil when
 these optimizations are in effect in the current buffer.
 
