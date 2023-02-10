@@ -4393,7 +4393,7 @@ handle_fontified_prop (struct it *it)
 
       eassert (it->end_charpos == ZV);
 
-      if (current_buffer->long_line_optimizations_p
+      if (0
 	  && long_line_locked_narrowing_region_size > 0)
 	{
 	  ptrdiff_t begv = it->locked_narrowing_begv;
