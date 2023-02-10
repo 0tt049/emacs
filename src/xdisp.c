@@ -3533,33 +3533,6 @@ get_closer_narrowed_begv (struct window *w, ptrdiff_t pos)
   return max ((pos / len - 1) * len, BEGV);
 }
 
-ptrdiff_t
-get_locked_narrowing_begv (ptrdiff_t pos)
-{
-  if (long_line_locked_narrowing_region_size <= 0)
-    return BEGV;
-  int len = long_line_locked_narrowing_region_size / 2;
-  int begv = max (pos - len, BEGV);
-  int limit = long_line_locked_narrowing_bol_search_limit;
-  while (limit > 0)
-    {
-      if (begv == BEGV || FETCH_BYTE (CHAR_TO_BYTE (begv) - 1) == '\n')
-	return begv;
-      begv--;
-      limit--;
-    }
-  return begv;
-}
-
-ptrdiff_t
-get_locked_narrowing_zv (ptrdiff_t pos)
-{
-  if (long_line_locked_narrowing_region_size <= 0)
-    return ZV;
-  int len = long_line_locked_narrowing_region_size / 2;
-  return min (pos + len, ZV);
-}
-
 static void
 unwind_narrowed_begv (Lisp_Object point_min)
 {
@@ -7451,20 +7424,12 @@ reseat (struct it *it, struct text_pos pos, bool force_p)
 	{
 	  it->narrowed_begv = get_narrowed_begv (it->w, window_point (it->w));
 	  it->narrowed_zv = get_narrowed_zv (it->w, window_point (it->w));
-	  it->locked_narrowing_begv
-	    = get_locked_narrowing_begv (window_point (it->w));
-	  it->locked_narrowing_zv
-	    = get_locked_narrowing_zv (window_point (it->w));
 	}
       else if ((pos.charpos < it->narrowed_begv || pos.charpos > it->narrowed_zv)
 		&& (!redisplaying_p || it->line_wrap == TRUNCATE))
 	{
 	  it->narrowed_begv = get_narrowed_begv (it->w, pos.charpos);
 	  it->narrowed_zv = get_narrowed_zv (it->w, pos.charpos);
-	  it->locked_narrowing_begv
-	    = get_locked_narrowing_begv (window_point (it->w));
-	  it->locked_narrowing_zv
-	    = get_locked_narrowing_zv (window_point (it->w));
 	}
     }
 
