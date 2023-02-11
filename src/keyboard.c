@@ -1286,8 +1286,7 @@ command_loop_1 (void)
       /* Note that the value cell will never directly contain nil
 	 if the symbol is a local variable.  */
       if (!NILP (Vpost_command_hook) && !NILP (Vrun_hooks))
-	safe_run_hooks_maybe_narrowed (Qpost_command_hook,
-				       XWINDOW (selected_window));
+	safe_run_hooks (Qpost_command_hook);
 
       /* If displaying a message, resize the echo area window to fit
 	 that message's size exactly.  */
@@ -1455,8 +1454,7 @@ command_loop_1 (void)
       Vthis_command = cmd;
       Vreal_this_command = cmd;
 
-      safe_run_hooks_maybe_narrowed (Qpre_command_hook,
-				     XWINDOW (selected_window));
+      safe_run_hooks (Qpre_command_hook);
 
       if (NILP (Vthis_command))
 	/* nil means key is undefined.  */
@@ -1506,8 +1504,7 @@ command_loop_1 (void)
           }
       kset_last_prefix_arg (current_kboard, Vcurrent_prefix_arg);
 
-      safe_run_hooks_maybe_narrowed (Qpost_command_hook,
-				     XWINDOW (selected_window));
+      safe_run_hooks (Qpost_command_hook);
 
       /* If displaying a message, resize the echo area window to fit
 	 that message's size exactly.  Do this only if the echo area
@@ -1893,17 +1890,6 @@ safe_run_hook_funcall (ptrdiff_t nargs, Lisp_Object *args)
 
 void
 safe_run_hooks (Lisp_Object hook)
-{
-  specpdl_ref count = SPECPDL_INDEX ();
-
-  specbind (Qinhibit_quit, Qt);
-  run_hook_with_args (2, ((Lisp_Object []) {hook, hook}),
-                      safe_run_hook_funcall);
-  unbind_to (count, Qnil);
-}
-
-void
-safe_run_hooks_maybe_narrowed (Lisp_Object hook, struct window *w)
 {
   specpdl_ref count = SPECPDL_INDEX ();
 
